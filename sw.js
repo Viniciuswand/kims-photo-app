@@ -1,5 +1,5 @@
 /* KIM'S PHOTO APP — service worker: app shell em cache, funciona offline */
-const CACHE = "kims-photo-v2";
+const CACHE = "kims-photo-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -26,6 +26,11 @@ self.addEventListener("activate", e => {
 
 self.addEventListener("fetch", e => {
   if (e.request.method !== "GET") return;
+  const url = new URL(e.request.url);
+  if (url.origin === location.origin && url.pathname.includes("/v2/")) {
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request, { ignoreSearch: true })));
+    return;
+  }
   e.respondWith(
     caches.match(e.request, { ignoreSearch: true }).then(hit =>
       hit ||
