@@ -22,7 +22,21 @@ function send(res, status, body, headers = {}) {
 
 function safeJoin(base, target) {
   const resolved = path.resolve(base, target);
-  return resolved.startsWith(path.resolve(base)) ? resolved : null;
+  const relative = path.relative(path.resolve(base), resolved);
+  return relative && !relative.startsWith("..") && !path.isAbsolute(relative) ? resolved : null;
+}
+
+function isPublicRootPath(pathname) {
+  return [
+    "/index.html",
+    "/sw.js",
+    "/manifest.webmanifest",
+    "/jspdf.umd.min.js",
+    "/icon-180.png",
+    "/icon-192.png",
+    "/icon-512.png",
+    "/v2.html",
+  ].includes(pathname);
 }
 
 function cacheHeader(filePath) {
@@ -82,6 +96,11 @@ function route(req, res) {
       return;
     }
     serveFile(req, res, filePath);
+    return;
+  }
+
+  if (!isPublicRootPath(pathname)) {
+    send(res, 404, "Not found", { "Content-Type": "text/plain; charset=utf-8" });
     return;
   }
 
