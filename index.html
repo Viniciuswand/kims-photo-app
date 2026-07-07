@@ -55,6 +55,11 @@
   header h1{margin:0; font-size:22px; line-height:1.05; font-weight:850; letter-spacing:0}
   header h1 em{font-style:normal; color:var(--accent2)}
   .sub{color:var(--muted); font-size:14px; line-height:1.45; padding:0 16px 14px; max-width:1100px; margin:0 auto}
+  .versionSwitch{max-width:1100px; margin:0 auto; padding:0 16px 4px; display:flex; gap:8px}
+  .versionSwitch a{display:inline-flex; align-items:center; justify-content:center; min-height:34px; padding:8px 12px;
+    border-radius:8px; border:1px solid var(--line); background:var(--panel2); color:var(--muted);
+    text-decoration:none; font-size:12px; font-weight:850}
+  .versionSwitch a.on{background:var(--grad); border-color:transparent; color:#1b130b}
 
   section{background:color-mix(in srgb,var(--panel) 94%,transparent); border:1px solid var(--line);
     border-radius:8px; padding:16px; margin:10px 0; box-shadow:0 1px 0 rgba(255,255,255,.03) inset}
@@ -200,6 +205,7 @@
     .wrap{padding:0 20px 24px}
     header{padding-left:20px; padding-right:20px}
     .sub{padding-left:20px; padding-right:20px}
+    .versionSwitch{padding-left:20px; padding-right:20px}
     section{padding:15px; margin:10px 0}
     .row{align-items:stretch; gap:8px}
     label.lbl{flex-basis:100%; width:100%; min-width:0}
@@ -220,6 +226,10 @@
 
 <header><div class="logo">KP</div><h1>KIM'S <em>PHOTO APP</em></h1></header>
 <div class="sub">Grade de fotos com tamanho exato, no estilo PhotoScape — gera PDF pronto para imprimir.</div>
+<nav class="versionSwitch" aria-label="Versão do aplicativo">
+  <a class="on" href="/">V1 atual</a>
+  <a href="/v2">Ativar V2</a>
+</nav>
 
 <div class="wrap">
 <div id="controls">
