@@ -1,6 +1,6 @@
 {
-  "name": "KIM'S PHOTO APP",
-  "short_name": "KIM'S PHOTO",
+  "name": "KIM'S PHOTO V2",
+  "short_name": "PHOTO V2",
   "description": "Impressão de fotos em grade com tamanho exato — gera PDF pronto para imprimir.",
   "lang": "pt-BR",
   "display": "standalone",

@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0e0e1a">
-<meta name="apple-mobile-web-app-title" content="KIM'S PHOTO APP">
+<meta name="theme-color" content="#101013">
+<meta name="apple-mobile-web-app-title" content="KIM'S PHOTO V2">
 <meta name="description" content="Impressão de fotos em grade com tamanho exato — gera PDF pronto para imprimir.">
 <meta name="format-detection" content="telephone=no">
-<title>KIM'S PHOTO APP — Impressão de Fotos</title>
+<title>KIM'S PHOTO V2 — Impressão de Fotos</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -224,11 +224,11 @@
 </head>
 <body>
 
-<header><div class="logo">KP</div><h1>KIM'S <em>PHOTO APP</em></h1></header>
+<header><div class="logo">KP</div><h1>KIM'S <em>PHOTO V2</em></h1></header>
 <div class="sub">Grade de fotos com tamanho exato, no estilo PhotoScape — gera PDF pronto para imprimir.</div>
 <nav class="versionSwitch" aria-label="Versão do aplicativo">
-  <a class="on" href="/">V1 atual</a>
-  <a href="/v2">Ativar V2</a>
+  <a href="https://photo.vwandinvest.tech/">Voltar V1</a>
+  <a class="on" href="/">V2 ativa</a>
 </nav>
 
 <div class="wrap">
@@ -396,6 +396,16 @@
 
 <script>
 "use strict";
+const V2_BUILD = "v2-lab-20260707-2";
+if (location.pathname.includes("/v2/")) {
+  setInterval(async () => {
+    try {
+      const res = await fetch("version.json?t=" + Date.now(), { cache: "no-store" });
+      const data = await res.json();
+      if (data.version && data.version !== V2_BUILD) location.reload();
+    } catch (e) {}
+  }, 7000);
+}
 const PAPERS = [
   ["A4 · 210 × 297 mm", 210, 297],
   ["A3 · 297 × 420 mm", 297, 420],

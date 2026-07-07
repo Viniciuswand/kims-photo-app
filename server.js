@@ -30,6 +30,7 @@ function isPublicRootPath(pathname) {
   return [
     "/index.html",
     "/sw.js",
+    "/version.json",
     "/manifest.webmanifest",
     "/jspdf.umd.min.js",
     "/icon-180.png",

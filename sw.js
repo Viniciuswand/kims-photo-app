@@ -1,8 +1,9 @@
-/* KIM'S PHOTO APP — service worker: app shell em cache, funciona offline */
-const CACHE = "kims-photo-v4";
+/* KIM'S PHOTO V2 — service worker de teste: busca a versão nova primeiro */
+const CACHE = "kims-photo-v2-branch-v1";
 const ASSETS = [
   "./",
   "./index.html",
+  "./version.json",
   "./jspdf.umd.min.js",
   "./manifest.webmanifest",
   "./icon-180.png",
@@ -26,21 +27,13 @@ self.addEventListener("activate", e => {
 
 self.addEventListener("fetch", e => {
   if (e.request.method !== "GET") return;
-  const url = new URL(e.request.url);
-  if (url.origin === location.origin && (url.pathname.includes("/v2/") || url.pathname.endsWith("/v2.html"))) {
-    e.respondWith(fetch(e.request).catch(() => caches.match(e.request, { ignoreSearch: true })));
-    return;
-  }
   e.respondWith(
-    caches.match(e.request, { ignoreSearch: true }).then(hit =>
-      hit ||
-      fetch(e.request).then(res => {
-        if (res.ok && new URL(e.request.url).origin === location.origin) {
-          const copy = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, copy));
-        }
-        return res;
-      })
-    )
+    fetch(e.request).then(res => {
+      if (res.ok && new URL(e.request.url).origin === location.origin) {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(e.request, copy));
+      }
+      return res;
+    }).catch(() => caches.match(e.request, { ignoreSearch: true }))
   );
 });
