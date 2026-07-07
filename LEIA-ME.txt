@@ -1,0 +1,50 @@
+KIM'S PHOTO APP — Impressão de fotos em grade (estilo PhotoScape)
+==================================================================
+
+CONTEÚDO DA PASTA (suba TUDO para a VPS, na mesma pasta)
+- index.html            -> o app
+- jspdf.umd.min.js      -> gerador de PDF (hospedado localmente, sem CDN)
+- sw.js                 -> service worker (faz o app funcionar offline)
+- manifest.webmanifest  -> configuração de PWA (nome, ícone, tela cheia)
+- icon-180.png          -> ícone da tela de início do iPhone
+- icon-192.png / icon-512.png -> ícones do PWA
+
+COMO PUBLICAR NA VPS
+1. Envie todos os arquivos para a pasta do site (ex.: /var/www/kimsphoto).
+2. Aponte o servidor web para essa pasta. Exemplo nginx:
+
+   server {
+     listen 80;
+     server_name fotos.seudominio.com;
+     root /var/www/kimsphoto;
+     index index.html;
+   }
+
+3. IMPORTANTE: ative HTTPS (ex.: certbot/Let's Encrypt).
+   O modo offline (service worker) e o comportamento de app no Safari
+   só funcionam com HTTPS. Sem HTTPS o app abre e funciona, mas sem
+   esses extras.
+
+COMO USAR NO IPHONE
+1. Abra o endereço no Safari (ex.: https://fotos.seudominio.com).
+2. O app mostra uma dica na primeira visita: toque em Compartilhar ->
+   Adicionar à Tela de Início. Vira um app de tela cheia com o ícone
+   KIM'S PHOTO.
+3. Depois de aberto uma vez, funciona ATÉ SEM INTERNET.
+4. Adicione fotos, escolha papel (A3, A4, A5, Carta, Ofício, 10x15 ou
+   personalizado), tamanho exato da foto em mm, repetições, efeitos.
+5. Toque em "Gerar PDF" e imprima pelo AirPrint no mesmo papel,
+   escala 100% (tamanho real).
+
+QUALIDADE DO PDF
+- 180 DPI  -> arquivo menor
+- 300 DPI  -> recomendado para impressão comum
+- 600 DPI  -> alta qualidade
+- 1200 DPI -> máximo (geração mais lenta, arquivo grande)
+
+OBSERVAÇÕES
+- O PDF sai com medidas exatas em milímetros — é ele que garante o
+  tamanho certo na impressão, em qualquer impressora.
+- Também funciona no computador (Chrome/Edge/Firefox/Safari).
+- Se atualizar o app na VPS, edite em sw.js o nome do cache
+  (ex.: kims-photo-v1 -> v2) para os iPhones baixarem a versão nova.
