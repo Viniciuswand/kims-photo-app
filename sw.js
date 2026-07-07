@@ -1,5 +1,5 @@
 /* KIM'S PHOTO APP — service worker: app shell em cache, funciona offline */
-const CACHE = "kims-photo-v1";
+const CACHE = "kims-photo-v2";
 const ASSETS = [
   "./",
   "./index.html",
