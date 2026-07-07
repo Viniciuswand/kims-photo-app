@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -21,12 +21,12 @@
 </script>
 <style>
   :root{
-    --bg:#101013; --panel:#17171d; --panel2:#202029; --panel3:#262631;
-    --line:#30303b; --line2:#454553;
-    --txt:#f7f7fb; --muted:#b4b4c4; --muted2:#838392;
-    --accent:#ff8847; --accent2:#ffd166; --teal:#55d6c2;
-    --grad:linear-gradient(135deg,#ff7a3d,#ffc044);
-    --ok:#ffd166; --err:#ff6b6b; --shadow:0 18px 45px rgba(0,0,0,.34);
+    --bg:#f4f5f8; --panel:#ffffff; --panel2:#f0f2f7; --panel3:#e7eaf1;
+    --line:#d9deea; --line2:#c2cad8;
+    --txt:#12141b; --muted:#646b78; --muted2:#8b94a3;
+    --accent:#f72585; --accent2:#00a7c7; --teal:#00b4d8;
+    --grad:linear-gradient(135deg,#f72585,#ffb703);
+    --ok:#007f6d; --err:#d92d20; --shadow:0 20px 55px rgba(22,28,45,.16);
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html{background:var(--bg); overscroll-behavior-y:none; -webkit-text-size-adjust:100%}
@@ -34,7 +34,7 @@
   button,label,summary,.chip,.seg,h1,h2,.lbl,.unit{-webkit-user-select:none; user-select:none}
   body{margin:0; color:var(--txt); min-height:100vh; min-height:100dvh; overscroll-behavior-y:none;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    background:linear-gradient(180deg,#14141a 0%,#101013 48%,#0d0d10 100%);
+    background:linear-gradient(180deg,#fff 0%,#f4f5f8 46%,#e9ecf3 100%);
     padding-bottom:112px;
     padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right)}
   body:has(#btnPdf:disabled){padding-bottom:28px}
@@ -61,6 +61,7 @@
     border-radius:8px; border:1px solid var(--line); background:var(--panel2); color:var(--muted);
     text-decoration:none; font-size:12px; font-weight:850}
   .versionSwitch a.on{background:var(--grad); border-color:transparent; color:#1b130b}
+  .mobileTabs{display:none}
 
   section{background:color-mix(in srgb,var(--panel) 94%,transparent); border:1px solid var(--line);
     border-radius:8px; padding:16px; margin:10px 0; box-shadow:0 1px 0 rgba(255,255,255,.03) inset}
@@ -122,7 +123,7 @@
   .mini:active{transform:scale(.98)}
 
   .info{background:rgba(85,214,194,.08); border:1px solid rgba(85,214,194,.28); border-radius:8px;
-    padding:11px 12px; font-size:13.5px; color:#d8fff8; font-weight:700; text-align:center; line-height:1.55;
+    padding:11px 12px; font-size:13.5px; color:#08796d; font-weight:700; text-align:center; line-height:1.55;
     margin-top:12px}
   .info.err{color:var(--err); border-color:rgba(255,107,107,.3); background:rgba(255,107,107,.07)}
   .info .dim{color:var(--muted); font-weight:500; font-size:12px; display:block}
@@ -203,11 +204,33 @@
     background:var(--panel2); color:var(--muted); font-size:14px; cursor:pointer}
 
   @media(max-width:640px){
-    .wrap{padding:0 20px 24px}
+    body,body:has(#btnPdf:disabled){padding-bottom:0}
+    .wrap{display:flex; flex-direction:column; padding:0 0 0}
     header{padding-left:20px; padding-right:20px}
     .sub{padding-left:20px; padding-right:20px}
     .versionSwitch{padding-left:20px; padding-right:20px}
+    #side{order:1; padding:0 20px}
+    #controls{order:2; margin:2px 0 0; padding:14px 16px calc(22px + env(safe-area-inset-bottom));
+      background:var(--panel); border-top:1px solid var(--line); border-radius:24px 24px 0 0;
+      box-shadow:0 -18px 50px rgba(22,28,45,.14)}
+    #side section{margin:12px 0 10px; padding:10px; border-radius:24px; background:#e9ecf3; border:0; box-shadow:var(--shadow)}
+    #side section h2{display:none}
+    #preview{min-height:358px; justify-content:center; background:#fff; border:2px solid var(--accent);
+      border-radius:16px; padding:8px; overflow:hidden}
+    #preview canvas{max-height:56vh; width:auto; max-width:100%; border-radius:10px; box-shadow:none}
+    #preview .empty{display:flex; align-items:center; justify-content:center; min-height:320px; border:0; background:#fff}
+    .pageLabel{margin-top:0; color:var(--muted)}
+    .mobileTabs{display:flex; gap:10px; overflow-x:auto; overscroll-behavior-x:contain; padding:0 0 12px;
+      scrollbar-width:none; scroll-snap-type:x proximity}
+    .mobileTabs::-webkit-scrollbar{display:none}
+    .mobileTabs button{flex:0 0 auto; min-width:84px; min-height:42px; border:1px solid var(--line);
+      border-radius:999px; background:var(--panel2); color:var(--muted); font-size:13px; font-weight:850;
+      padding:10px 14px; scroll-snap-align:start}
+    .mobileTabs button.on{background:var(--grad); border-color:transparent; color:#1b130b; box-shadow:0 10px 22px rgba(247,37,133,.22)}
     section{padding:15px; margin:10px 0}
+    #controls section{display:none; margin:0; padding:4px 0 0; border:0; box-shadow:none; background:transparent}
+    #controls section.activePanel{display:block}
+    #controls section h2{margin-bottom:12px}
     .row{align-items:stretch; gap:8px}
     label.lbl{flex-basis:100%; width:100%; min-width:0}
     .row > select,.row > .seg{flex-basis:100%; width:100%}
@@ -220,6 +243,10 @@
     .sliderRow{flex-wrap:wrap}
     .sliderRow input[type=range]{flex-basis:100%}
     .mini{flex:1}
+    #actions{position:static; display:block; padding:14px 0 0; background:transparent; border-top:0; backdrop-filter:none}
+    #actions:has(#btnPdf:disabled){display:none}
+    #actions .inner{max-width:none}
+    details{display:none}
   }
 </style>
 </head>
@@ -234,6 +261,14 @@
 
 <div class="wrap">
 <div id="controls">
+
+<nav class="mobileTabs" aria-label="Ajustes da montagem">
+  <button type="button" class="on" data-panel="0">Fotos</button>
+  <button type="button" data-panel="1">Papel</button>
+  <button type="button" data-panel="2">Tamanho</button>
+  <button type="button" data-panel="3">Ajuste</button>
+  <button type="button" data-panel="4">Cor</button>
+</nav>
 
 <section>
   <h2><span class="ic">01</span> Fotos</h2>
@@ -397,8 +432,8 @@
 
 <script>
 "use strict";
-const V2_BUILD = "v2-lab-20260707-2";
-if (location.pathname.includes("/v2/")) {
+const V2_BUILD = "v2-lab-20260707-3";
+if (location.protocol !== "file:") {
   setInterval(async () => {
     try {
       const res = await fetch("version.json?t=" + Date.now(), { cache: "no-store" });
@@ -425,6 +460,15 @@ const PRESETS = [
 const $ = id => document.getElementById(id);
 const photos = []; // {img,url,name,copies}
 const state = { paperOri: "p", photoOri: "p", effect: "none" };
+
+const mobilePanels = [...document.querySelectorAll("#controls > section")];
+const mobileTabs = [...document.querySelectorAll(".mobileTabs button")];
+function setMobilePanel(index){
+  mobilePanels.forEach((panel, i) => panel.classList.toggle("activePanel", i === index));
+  mobileTabs.forEach((tab, i) => tab.classList.toggle("on", i === index));
+}
+mobileTabs.forEach(tab => tab.addEventListener("click", () => setMobilePanel(+tab.dataset.panel || 0)));
+setMobilePanel(0);
 
 /* ---------- montar UI ---------- */
 PAPERS.forEach(([n], i) => $("paper").add(new Option(n, i)));
